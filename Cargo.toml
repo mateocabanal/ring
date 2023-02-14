@@ -301,11 +301,13 @@ all-features = true
 name = "ring"
 
 [dependencies]
-ctru-rs = { git = "https://github.com/rust3ds/ctru-rs", version = "0.7.1" }
 untrusted = { version = "0.7.1" }
 
 [target.'cfg(any(target_arch = "x86",target_arch = "x86_64", all(any(target_arch = "aarch64", target_arch = "arm"), any(target_os = "android", target_os = "fuchsia", target_os = "linux"))))'.dependencies]
 spin = { version = "0.5.2", default-features = false }
+
+[target.'cfg(target_os = "horizon")'.dependencies]
+ctru-rs = { git = "https://github.com/mateocabanal/ctru-rs"}
 
 [target.'cfg(any(target_os = "android", target_os = "linux"))'.dependencies]
 libc = { version = "0.2.69", default-features = false }

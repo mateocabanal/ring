@@ -549,8 +549,9 @@ fn cc(
         for i in [
             "-mfloat-abi=hard",
             "-finline-limit=5000",
+            "-mfpu=vfp",
             "-mtp=soft",
-            "-march=armv6k+fp",
+            "-march=armv6k",
         ] {
             let _ = c.flag(i);
         }
