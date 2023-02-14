@@ -195,6 +195,9 @@ use self::darwin::fill as fill_impl;
 #[cfg(any(target_os = "fuchsia"))]
 use self::fuchsia::fill as fill_impl;
 
+#[cfg(target_os = "horizon")]
+use self::horizon::fill as fill_impl;
+
 #[cfg(any(target_os = "android", target_os = "linux"))]
 mod sysrand_chunk {
     use crate::{c, error};
@@ -429,5 +432,20 @@ mod fuchsia {
     #[link(name = "zircon")]
     extern "C" {
         fn zx_cprng_draw(buffer: *mut u8, length: usize);
+    }
+}
+
+#[cfg(target_os = "horizon")]
+mod horizon {
+    use crate::error;
+    use ctru::prelude::*;
+    use ctru::services::sslc;
+
+    pub fn fill(dest: &mut [u8]) -> Result<(), error::Unspecified> {
+        ctru::init();
+
+        let rng = sslc::SslC::init().unwrap();
+        rng.generate_random_data(dest);
+        Ok(())
     }
 }

@@ -54,54 +54,54 @@
 #define OPENSSL_HEADER_ARM_ARCH_H
 
 #if !defined(__ARM_ARCH__)
-# if defined(__CC_ARM)
-#  define __ARM_ARCH__ __TARGET_ARCH_ARM
-#  if defined(__BIG_ENDIAN)
-#   define __ARMEB__
-#  else
-#   define __ARMEL__
-#  endif
-# elif defined(__GNUC__)
-#  if defined(__aarch64__)
-#    define __ARM_ARCH__ 8
-#    if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-#      define __ARMEB__
-#    else
-#      define __ARMEL__
-#    endif
-  // Why doesn't gcc define __ARM_ARCH__? Instead it defines
-  // bunch of below macros. See all_architectires[] table in
-  // gcc/config/arm/arm.c. On a side note it defines
-  // __ARMEL__/__ARMEB__ for little-/big-endian.
-#  elif	defined(__ARM_ARCH)
-#    define __ARM_ARCH__ __ARM_ARCH
-#  elif	defined(__ARM_ARCH_8A__)
-#    define __ARM_ARCH__ 8
-#  elif	defined(__ARM_ARCH_7__)	|| defined(__ARM_ARCH_7A__)	|| \
-	defined(__ARM_ARCH_7R__)|| defined(__ARM_ARCH_7M__)	|| \
-	defined(__ARM_ARCH_7EM__)
-#   define __ARM_ARCH__ 7
-#  elif	defined(__ARM_ARCH_6__)	|| defined(__ARM_ARCH_6J__)	|| \
-	defined(__ARM_ARCH_6K__)|| defined(__ARM_ARCH_6M__)	|| \
-	defined(__ARM_ARCH_6Z__)|| defined(__ARM_ARCH_6ZK__)	|| \
-	defined(__ARM_ARCH_6T2__)
-#   define __ARM_ARCH__ 6
-#  elif	defined(__ARM_ARCH_5__)	|| defined(__ARM_ARCH_5T__)	|| \
-	defined(__ARM_ARCH_5E__)|| defined(__ARM_ARCH_5TE__)	|| \
-	defined(__ARM_ARCH_5TEJ__)
-#   define __ARM_ARCH__ 5
-#  elif	defined(__ARM_ARCH_4__)	|| defined(__ARM_ARCH_4T__)
-#   define __ARM_ARCH__ 4
-#  else
-#   error "unsupported ARM architecture"
-#  endif
-# endif
+#if defined(__CC_ARM)
+#define __ARM_ARCH__ __TARGET_ARCH_ARM
+#if defined(__BIG_ENDIAN)
+#define __ARMEB__
+#else
+#define __ARMEL__
+#endif
+#elif defined(__GNUC__)
+#if defined(__aarch64__)
+#define __ARM_ARCH__ 8
+#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#define __ARMEB__
+#else
+#define __ARMEL__
+#endif
+// Why doesn't gcc define __ARM_ARCH__? Instead it defines
+// bunch of below macros. See all_architectires[] table in
+// gcc/config/arm/arm.c. On a side note it defines
+// __ARMEL__/__ARMEB__ for little-/big-endian.
+#elif defined(__ARM_ARCH)
+#define __ARM_ARCH__ __ARM_ARCH
+#elif defined(__ARM_ARCH_8A__)
+#define __ARM_ARCH__ 8
+#elif defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) || \
+    defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) ||  \
+    defined(__ARM_ARCH_7EM__)
+#define __ARM_ARCH__ 7
+#elif defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_6J__) || \
+    defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6M__) ||  \
+    defined(__ARM_ARCH_6Z__) || defined(__ARM_ARCH_6ZK__) || \
+    defined(__ARM_ARCH_6T2__)
+#define __ARM_ARCH__ 6
+#elif defined(__ARM_ARCH_5__) || defined(__ARM_ARCH_5T__) || \
+    defined(__ARM_ARCH_5E__) || defined(__ARM_ARCH_5TE__) || \
+    defined(__ARM_ARCH_5TEJ__)
+#define __ARM_ARCH__ 5
+#elif defined(__ARM_ARCH_4__) || defined(__ARM_ARCH_4T__)
+#define __ARM_ARCH__ 4
+#else
+#error "unsupported ARM architecture"
+#endif
+#endif
 #endif
 
 // Even when building for 32-bit ARM, support for aarch64 crypto instructions
 // will be included.
 #if !defined(__ARM_MAX_ARCH__)
-#define __ARM_MAX_ARCH__ 8
+#define __ARM_MAX_ARCH__ 6
 #endif
 
 // ARMV7_NEON is true when a NEON unit is present in the current CPU.
@@ -155,7 +155,7 @@
 #endif
 
 #if GNU_PROPERTY_AARCH64_POINTER_AUTH != 0 || GNU_PROPERTY_AARCH64_BTI != 0
-.pushsection .note.gnu.property, "a";
+.pushsection.note.gnu.property, "a";
 .balign 8;
 .long 4;
 .long 0x10;
@@ -163,7 +163,7 @@
 .asciz "GNU";
 .long 0xc0000000; /* GNU_PROPERTY_AARCH64_FEATURE_1_AND */
 .long 4;
-.long (GNU_PROPERTY_AARCH64_POINTER_AUTH | GNU_PROPERTY_AARCH64_BTI);
+.long(GNU_PROPERTY_AARCH64_POINTER_AUTH | GNU_PROPERTY_AARCH64_BTI);
 .long 0;
 .popsection;
 #endif
@@ -172,6 +172,6 @@
 #pragma GCC diagnostic pop
 #endif
 
-#endif  /* defined __ASSEMBLER__ */
+#endif /* defined __ASSEMBLER__ */
 
 #endif  // OPENSSL_HEADER_ARM_ARCH_H
