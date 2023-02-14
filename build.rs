@@ -148,7 +148,7 @@ fn c_flags(target: &Target) -> &'static [&'static str] {
             "-Wbad-function-cast",
             "-Wnested-externs",
             "-Wstrict-prototypes",
-            "-flimits=5000",
+            "-finline-limit=5000",
         ];
         NON_MSVC_FLAGS
     } else {
