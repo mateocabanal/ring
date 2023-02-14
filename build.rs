@@ -497,6 +497,7 @@ fn compile(
     out_dir: &Path,
     includes_modified: SystemTime,
 ) -> String {
+    eprintln!("COMPILE CALLED WITH: {}, {}", p, target);
     let ext = p.extension().unwrap().to_str().unwrap();
     if ext == "obj" {
         p.to_str().expect("Invalid path").into()
