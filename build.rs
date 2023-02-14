@@ -497,7 +497,7 @@ fn compile(
     out_dir: &Path,
     includes_modified: SystemTime,
 ) -> String {
-    eprintln!("COMPILE CALLED WITH: {}, {}", p, target);
+    eprintln!("COMPILE CALLED WITH: {}, {}", p.display(), target.arch);
     let ext = p.extension().unwrap().to_str().unwrap();
     if ext == "obj" {
         p.to_str().expect("Invalid path").into()
@@ -532,6 +532,7 @@ fn cc(
 ) -> Command {
     let is_musl = target.env.starts_with("musl");
 
+    eprintln!("COMPILE CALLED WITH: {}, {}", file.display(), target.arch);
     let mut c = cc::Build::new();
     let _ = c.include("include");
     match ext {
@@ -623,6 +624,7 @@ fn cc(
 }
 
 fn nasm(file: &Path, arch: &str, out_file: &Path) -> Command {
+    println!("NASM: {}, {}", file.display(), arch);
     let oformat = match arch {
         "x86_64" => ("win64"),
         "x86" => ("win32"),
