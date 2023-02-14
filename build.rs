@@ -544,6 +544,18 @@ fn cc(
         "S" => (),
         e => panic!("Unsupported file extension: {:?}", e),
     };
+
+    if target.os == "horizon" {
+        for i in [
+            "-mfloat-abi=hard",
+            "-finline-limit=5000",
+            "-mtp=soft",
+            "-march=armv6k+fp",
+        ] {
+            let _ = c.flag(i);
+        }
+    }
+
     for f in cpp_flags(target) {
         let _ = c.flag(&f);
     }
