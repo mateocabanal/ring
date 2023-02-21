@@ -442,7 +442,7 @@ mod horizon {
     use ctru::services::sslc;
 
     pub fn fill(dest: &mut [u8]) -> Result<(), error::Unspecified> {
-        ctru::init();
+        ctru::use_panic_handler();
 
         let rng = sslc::SslC::init().unwrap();
         rng.generate_random_data(dest);

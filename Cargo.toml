@@ -307,7 +307,7 @@ untrusted = { version = "0.7.1" }
 spin = { version = "0.5.2", default-features = false }
 
 [target.'cfg(target_os = "horizon")'.dependencies]
-ctru-rs = { git = "https://github.com/rust3ds/ctru-rs"}
+ctru-rs = { git = "https://github.com/mateocabanal/ctru-rs"}
 
 [target.'cfg(any(target_os = "android", target_os = "linux"))'.dependencies]
 libc = { version = "0.2.69", default-features = false }
